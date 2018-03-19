@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import $ from 'jquery'
 import InputCustomizado from './InputCustomizado'
 import Submit from './Submit'
+import PubSub from 'pubsub-js'
 
 export default class FormularioAutor extends Component {
 
@@ -22,9 +23,10 @@ export default class FormularioAutor extends Component {
       dataType: 'json',
       type: 'post',
       data: JSON.stringify({ nome: this.state.nome, email: this.state.email, senha: this.state.senha }),
-      success: function (resposta) {
-        this.props.atualizaLista(resposta)
-      }.bind(this),
+      success: function (novaListagem) {
+        // this.props.atualizaLista(resposta)
+        PubSub.publish('atualiza-lista', novaListagem)
+      },
       error: function (resposta) {
         console.log("erro");
       }

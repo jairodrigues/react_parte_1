@@ -5,7 +5,6 @@ import './App.css'
 import './css/pure-min.css'
 import './css/side-menu.css'
 
-
 export default class App extends Component {
   render() {
     return (
@@ -26,8 +25,8 @@ export default class App extends Component {
         <div id="main">
           <div className="header">
             <h1>Cadastro de Autores</h1>
-          </div>          
-            <AutorBox />         
+          </div>
+            <AutorBox />
         </div>
       </div>
     )

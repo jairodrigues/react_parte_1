@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import TabelaAutor from './TabelaAutor'
 import FormularioAutor from './FormularioAutor'
 import $ from 'jquery'
+import PubSub from 'pubsub-js'
 
 export default class AutorBox extends Component {
     constructor() {
@@ -20,7 +21,11 @@ export default class AutorBox extends Component {
                 console.log("chegou a resposta");
                 this.setState({ lista: resposta });
             }.bind(this)
-        });
+        })
+
+        PubSub.subscribe('atualiza-lista', function(topico,novaLista){
+          this.setState({lista: novaLista})
+        }.bind(this))
     }
 
     reloadLista(novaLista){
@@ -30,7 +35,7 @@ export default class AutorBox extends Component {
     render(){
         return(
             <div className="content" id="content">
-                <FormularioAutor atualizaLista={this.reloadLista} />
+                <FormularioAutor />
                 <TabelaAutor lista={this.state.lista} />
             </div>
         )
