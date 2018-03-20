@@ -3,6 +3,7 @@ import $ from 'jquery'
 import InputCustomizado from './InputCustomizado'
 import Submit from './Submit'
 import PubSub from 'pubsub-js'
+import TratadorErros from './TratamentoErros'
 
 export default class FormularioAutor extends Component {
 
@@ -13,6 +14,7 @@ export default class FormularioAutor extends Component {
     this.setNome = this.setNome.bind(this)
     this.setEmail = this.setEmail.bind(this)
     this.setSenha = this.setSenha.bind(this)
+    const TrataErros = new TratadorErros();
 	}
 
   enviaForm(evento) {
@@ -23,12 +25,16 @@ export default class FormularioAutor extends Component {
       dataType: 'json',
       type: 'post',
       data: JSON.stringify({ nome: this.state.nome, email: this.state.email, senha: this.state.senha }),
+      beforeSend: function(){
+        PubSub.publish("limpa-erros",{});
+      },
       success: function (novaListagem) {
         // this.props.atualizaLista(resposta)
         PubSub.publish('atualiza-lista', novaListagem)
-      },
+        this.setState({nome:'',email:'',senha:''});
+      }.bind(this),
       error: function (resposta) {
-        console.log("erro");
+        new TratadorErros().publicaErros(resposta.responseJSON);
       }
     });
   }
