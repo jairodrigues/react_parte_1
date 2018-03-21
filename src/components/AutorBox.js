@@ -16,7 +16,7 @@ export default class AutorBox extends Component {
 
     componentDidMount() {
         $.ajax({
-            url: "https://cdc-react.herokuapp.com/api/autores",
+            url: "https://localhost:8080/api/autores",
             dataType: 'json',
             success: function (resposta) {
                 console.log("chegou a resposta");

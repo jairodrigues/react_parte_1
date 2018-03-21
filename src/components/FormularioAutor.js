@@ -20,7 +20,7 @@ export default class FormularioAutor extends Component {
   enviaForm(evento) {
     evento.preventDefault();
     $.ajax({
-      url: 'https://cdc-react.herokuapp.com/api/autores',
+      url: 'http://localhost:8080/api/autores',
       contentType: 'application/json',
       dataType: 'json',
       type: 'post',
@@ -33,7 +33,7 @@ export default class FormularioAutor extends Component {
         this.setState({nome:'',email:'',senha:''});
       }.bind(this),
       error: function (resposta) {
-        this.TrataErros.publicaErros(resposta.responseJSON);
+       new TratadorErros().publicaErros(resposta.responseJSON);
       }
     });
   }
