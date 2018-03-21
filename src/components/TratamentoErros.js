@@ -5,7 +5,6 @@ export default class TratadorErros {
         for(var i=0;i<erros.errors.length;i++){
             var erro = erros.errors[i];
             PubSub.publish('erro-validacao',erro)
-            console.log(erro);
-        }
+                }
     }
 }

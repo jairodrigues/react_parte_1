@@ -8,7 +8,8 @@ export default class AutorBox extends Component {
     constructor() {
         super()
         this.state = {
-            lista: []
+            lista: [],
+            dois: '2'
         }
         this.reloadLista = this.reloadLista.bind(this)
     }
@@ -34,10 +35,15 @@ export default class AutorBox extends Component {
 
     render(){
         return(
+            <div>
+            <div className="header">
+            <h1>Cadastrar usuarios</h1>
+          </div>
           <div className="content" id="content">
             <FormularioAutor/>
             <TabelaAutor lista={this.state.lista}/>
-      </div>
+        </div>
+        </div>
         )
     }
 }

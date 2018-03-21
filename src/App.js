@@ -24,7 +24,7 @@ export default class App extends Component {
           </div>
         </div>
         <div id="main">
-            {this.props.children}
+            {this.props.children}           
         </div>
       </div>
     )

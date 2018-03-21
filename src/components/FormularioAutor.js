@@ -29,12 +29,11 @@ export default class FormularioAutor extends Component {
         PubSub.publish("limpa-erros",{});
       },
       success: function (novaListagem) {
-        // this.props.atualizaLista(resposta)
         PubSub.publish('atualiza-lista', novaListagem)
         this.setState({nome:'',email:'',senha:''});
       }.bind(this),
       error: function (resposta) {
-        new TratadorErros().publicaErros(resposta.responseJSON);
+        this.TrataErros.publicaErros(resposta.responseJSON);
       }
     });
   }
