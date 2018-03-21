@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import logo from './logo.svg'
 import AutorBox from './components/AutorBox'
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 import './App.css'
 import './css/pure-min.css'
 import './css/side-menu.css'
@@ -24,7 +24,7 @@ export default class App extends Component {
           </div>
         </div>
         <div id="main">
-            {this.props.children}           
+            {this.props.children}
         </div>
       </div>
     )
