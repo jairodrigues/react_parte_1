@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import logo from './logo.svg'
-import AutorBox from './components/AutorBox'
+import AutorBox from './components/Wrapper/AutorBox'
 import {Link} from 'react-router-dom';
 import './App.css'
 import './css/pure-min.css'

@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
+import $ from 'jquery'
 
 
 export default class TabelaLivro extends Component{
     render(){
         return(
-            <div className="header">
+        <div>
+        <div className="header">
            <h1>Cadastrar usuarios</h1>
         </div>
         <div className="content" id="content">
@@ -19,7 +21,7 @@ export default class TabelaLivro extends Component{
             </thead>
             <tbody>
               {
-                  this.state.lista.map(function (livro) {
+                  this.props.lista.map(function (livro) {
                       return (
                           <tr key={livro.id}>
                               <td>{livro.titulo}</td>
@@ -32,6 +34,7 @@ export default class TabelaLivro extends Component{
               }
             </tbody>
           </table>
+        </div>
         </div>
         )
     }

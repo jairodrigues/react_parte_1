@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import TabelaAutor from './TabelaAutor'
-import FormularioAutor from './FormularioAutor'
+import TabelaAutor from '../Tabelas/TabelaAutor'
+import FormularioAutor from '../Formularios/FormularioAutor'
 import $ from 'jquery'
 import PubSub from 'pubsub-js'
 
@@ -15,14 +15,13 @@ export default class AutorBox extends Component {
 
     componentDidMount() {
         $.ajax({
-            url: "https://localhost:8080/api/autores",
+            url: "http://localhost:8080/api/autores",
             dataType: 'json',
             success: function (resposta) {
                 console.log("chegou a resposta");
                 this.setState({ lista: resposta });
             }.bind(this)
         })
-
         PubSub.subscribe('atualiza-lista', function(topico,novaLista){
           this.setState({lista: novaLista})
         }.bind(this))
@@ -37,12 +36,14 @@ export default class AutorBox extends Component {
             <div>
             <div className="header">
             <h1>Cadastrar usuarios</h1>
-          </div>
+
           <div className="content" id="content">
             <FormularioAutor/>
             <TabelaAutor lista={this.state.lista}/>
         </div>
         </div>
+        </div>
         )
     }
 }
+
