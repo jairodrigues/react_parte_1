@@ -8,8 +8,7 @@ export default class AutorBox extends Component {
     constructor() {
         super()
         this.state = {
-            lista: [],
-            dois: '2'
+            lista: []
         }
         this.reloadLista = this.reloadLista.bind(this)
     }

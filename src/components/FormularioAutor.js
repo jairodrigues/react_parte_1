@@ -20,7 +20,7 @@ export default class FormularioAutor extends Component {
   enviaForm(evento) {
     evento.preventDefault();
     $.ajax({
-      url: 'http://localhost:8080/api/autores',
+      url: 'https://cdc-react.herokuapp.com/api/autores',
       contentType: 'application/json',
       dataType: 'json',
       type: 'post',
