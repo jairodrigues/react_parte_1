@@ -3,6 +3,7 @@ import TabelaAutor from '../Tabelas/TabelaAutor'
 import FormularioAutor from '../Formularios/FormularioAutor'
 import $ from 'jquery'
 import PubSub from 'pubsub-js'
+import AutorService from '../../Services/AutorService'
 
 export default class AutorBox extends Component {
     constructor() {
@@ -10,21 +11,20 @@ export default class AutorBox extends Component {
         this.state = {
             lista: []
         }
+        this.service = new AutorService()
         this.reloadLista = this.reloadLista.bind(this)
     }
 
-    componentDidMount() {
-        $.ajax({
-            url: "http://localhost:8080/api/autores",
-            dataType: 'json',
-            success: function (resposta) {
-                console.log("chegou a resposta");
-                this.setState({ lista: resposta });
-            }.bind(this)
-        })
+    componentDidMount = async () => {
+        try{
+            const response = await this.service.getAutores()
+            this.setState({lista:response})
+        }catch(error){
+            console.log('ERRO',error)
+        }
         PubSub.subscribe('atualiza-lista', function(topico,novaLista){
-          this.setState({lista: novaLista})
-        }.bind(this))
+            this.setState({lista: novaLista})
+        }.bind(this))        
     }
 
     reloadLista(novaLista){

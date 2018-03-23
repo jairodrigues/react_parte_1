@@ -4,6 +4,7 @@ import InputCustomizado from './InputCustomizado'
 import Submit from './Submit'
 import PubSub from 'pubsub-js'
 import TratadorErros from '../Erros/TratamentoErros'
+import AutorService from '../../Services/AutorService'
 
 export default class FormularioAutor extends Component {
 
@@ -12,27 +13,39 @@ export default class FormularioAutor extends Component {
 		this.state = { nome: '', email: '', senha: '' }
 		this.enviaForm = this.enviaForm.bind(this)
     const TrataErros = new TratadorErros();
+    this.service = new AutorService();
 	}
 
-  enviaForm(evento) {
+  enviaForm = async (evento) => {
     evento.preventDefault();
-    $.ajax({
-      url: 'http://localhost:8080/api/autores',
-      contentType: 'application/json',
-      dataType: 'json',
-      type: 'post',
-      data: JSON.stringify({ nome: this.state.nome, email: this.state.email, senha: this.state.senha }),
-      beforeSend: function(){
-        PubSub.publish("limpa-erros",{});
-      },
-      success: function (novaListagem) {
-        PubSub.publish('atualiza-lista', novaListagem)
-        this.setState({nome:'',email:'',senha:''});
-      }.bind(this),
-      error: function (resposta) {
-       new TratadorErros().publicaErros(resposta.responseJSON);
-      }
-    });
+    // const response
+    try{
+      PubSub.publish("limpa-erros",{});
+      const response = await this.service.postAutores({nome:this.state.nome,email:this.state.email,senha:this.state.senha})
+      this.setState({nome:'',email:'',senha:''});
+    }catch(error){
+      console.log('ERRO',error)
+      // new TratadorErros().publicaErros(response.responseJSON)
+    }
+
+
+    // $.ajax({
+    //   url: 'http://localhost:8080/api/autores',
+    //   contentType: 'application/json',
+    //   dataType: 'json',
+    //   type: 'post',
+    //   data: JSON.stringify({ nome: this.state.nome, email: this.state.email, senha: this.state.senha }),
+    //   beforeSend: function(){
+    //     
+    //   },
+    //   success: function (novaListagem) {
+    //     PubSub.publish('atualiza-lista', novaListagem)
+    //     this.setState({nome:'',email:'',senha:''});
+    //   }.bind(this),
+    //   error: function (resposta) {
+    //    new TratadorErros().publicaErros(resposta.responseJSON);
+    //   }
+    // });
   }
 
   salvaAlteracao(nomeInput,evento){
