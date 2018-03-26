@@ -22,9 +22,11 @@ export default class AutorBox extends Component {
         }catch(error){
             console.log('ERRO',error)
         }
-        PubSub.subscribe('atualiza-lista', function(topico,novaLista){
-            this.setState({lista: novaLista})
-        }.bind(this))        
+        finally{
+            PubSub.subscribe('atualiza-lista', function(topico,novaLista){
+                this.setState({lista: novaLista})
+            }.bind(this))
+        }
     }
 
     reloadLista(novaLista){

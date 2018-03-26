@@ -55,13 +55,12 @@ export default class FormularioLivro extends Component{
           <form className="pure-form pure-form-aligned" onSubmit={this.enviaFormTitulo}>
             <InputCustomizado id="titulo" type="text" name="titulo" value={this.state.titulo} onChange={this.salvaAlteracao.bind(this,'titulo')} label="Titulo" />
             <InputCustomizado id="preco" type="text" name="preco" value={this.state.preco} onChange={this.salvaAlteracao.bind(this,'preco')} label="Preço" />
-            <div className="pure-control-group">
+            <div className="pure-con render(){trol-group">
               <label htmlFor="autorId">Autor</label>
               <select name="autorId" id="autorId" onChange={this.salvaAlteracao.bind(this,'autorId')} value={this.state.autorId}>
               <option value="">Selecione autor</option>
                 {console.log(listaAutores)}
                 {
-
                     listaAutores.map(function(autor) {
                     return <option key={ autor.id } value={ autor.id }>
                               { autor.nome }
